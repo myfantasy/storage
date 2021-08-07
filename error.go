@@ -8,14 +8,14 @@ import (
 
 // Errors codes and description
 var Errors map[int]string = map[int]string{
-	10000000: "MapSorage: not found name: %v",
-	10000001: "MapSorage: name exists: %v",
-	10000002: "File: error: %v",
-	10000003: "Mkdir error: path: %v",
+	10000000: "MapSorage: not found name: `%v`",
+	10000001: "MapSorage: name exists: `%v`",
+	10000002: "File: error: `%v`",
+	10000003: "Mkdir error: path: `%v`",
 
 	10001000: "Cluster.Create: Lock mutex fail wait",
-	10001001: "Cluster.Create: storage type %v is not exists",
-	10001002: "Cluster.Create: mount %v is not exists",
+	10001001: "Cluster.Create: storage type `%v` is not exists",
+	10001002: "Cluster.Create: mount `%v` is not exists",
 }
 
 // GenerateError -
