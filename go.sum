@@ -1,6 +1,6 @@
-github.com/myfantasy/compress v0.0.2 h1:a8CpXi2CH4gUni4bS4asi05pSHUvEOL4s3oIbPSef04=
-github.com/myfantasy/compress v0.0.2/go.mod h1:8ZKQquh5JXo+SRr4566JP4dSB8N2ZrS/0aK7Egvdkiw=
+github.com/myfantasy/compress v0.0.3 h1:uwA5+Rqswa9UwhUCKgUo1YWG7QsM7opI8APPpIOhBKA=
+github.com/myfantasy/compress v0.0.3/go.mod h1:JVJCGnoBi456U0S3OaOZPMHHipht6TOV2mxVS7g21Vw=
 github.com/myfantasy/mfs v0.1.4 h1:AhiUqDw3DpBHlRmPOFx+W7fAePgh3iFg/DvaXcjdsQs=
 github.com/myfantasy/mfs v0.1.4/go.mod h1:VzrpsffCc+o2mGUMJrO07YSbHrGfZ4PbbENQbNssecA=
-github.com/myfantasy/mft v0.1.0 h1:MRRZpUPkNCIIXSCXYkYGE7puUBJRE0Ndp1+Eh+jrcis=
-github.com/myfantasy/mft v0.1.0/go.mod h1:0Z5dKFlkM9T5IjF6fj+lfsnc29g0FQ+zgzqQDK9/5sw=
+github.com/myfantasy/mft v0.1.1 h1:97B7CcWofkbVsply7RKYbknWVfOsJWmZjkmuKeGMDGo=
+github.com/myfantasy/mft v0.1.1/go.mod h1:0Z5dKFlkM9T5IjF6fj+lfsnc29g0FQ+zgzqQDK9/5sw=
