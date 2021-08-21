@@ -137,14 +137,16 @@ func LoadIfExists(ctx context.Context, s Storage, fileName string, v Storable, d
 		return false, GenerateError(10001126)
 	}
 
-	ok, err = doFill()
-	if err != nil {
-		v.DataUnlock()
-		return false, GenerateErrorE(10001127, err)
-	}
-	if !ok {
-		v.DataUnlock()
-		return true, nil
+	if doFill != nil {
+		ok, err = doFill()
+		if err != nil {
+			v.DataUnlock()
+			return false, GenerateErrorE(10001127, err)
+		}
+		if !ok {
+			v.DataUnlock()
+			return true, nil
+		}
 	}
 
 	err = v.FromBytes(body)
