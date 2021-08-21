@@ -11,12 +11,12 @@ import (
 type ZipSaveSorage struct {
 	storage       Storage
 	compressor    *compress.Generator
-	alghoritm     string
+	alghoritm     compress.CompressionType
 	fileExtention string
 }
 
 // CreateDoubleSaveSorage - creates double_save_storage storange
-func CreateZipSaveSorage(storage Storage, compressor *compress.Generator, alghoritm string, fileExtention string) *ZipSaveSorage {
+func CreateZipSaveSorage(storage Storage, compressor *compress.Generator, alghoritm compress.CompressionType, fileExtention string) *ZipSaveSorage {
 	return &ZipSaveSorage{
 		storage:       storage,
 		compressor:    compressor,

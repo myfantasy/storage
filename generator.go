@@ -8,22 +8,27 @@ import (
 	"github.com/myfantasy/mft"
 )
 
-// StorageMAPType - storage map type
-var StorageMAPType = "map"
+// StorageType - type of storage
+type StorageType string
 
-// StorageFileType - storage file type (folder := homePath + folder)
-var StorageFileType = "file"
+const (
+	// StorageMAPType - storage map type
+	StorageMAPType StorageType = "map"
 
-// StorageFileDoubleSaveType - storage file type with double (folder := homePath + folder)
-var StorageFileDoubleSaveType = "file_dbl_save"
+	// StorageFileType - storage file type (folder := homePath + folder)
+	StorageFileType StorageType = "file"
 
-// StorageFileDoubleSaveType - storage file type with double (folder := homePath + folder)
-var StorageFileDoubleSaveTypeGZip = "file_dbl_save_gzip"
+	// StorageFileDoubleSaveType - storage file type with double (folder := homePath + folder)
+	StorageFileDoubleSaveType StorageType = "file_dbl_save"
+
+	// StorageFileDoubleSaveType - storage file type with double (folder := homePath + folder)
+	StorageFileDoubleSaveTypeGZip StorageType = "file_dbl_save_gzip"
+)
 
 // Generator - storage cluster
 type Generator struct {
 	mx            mfs.PMutex
-	storGenerator map[string]func(ctx context.Context, params Mount, relativePath string) (Storage, *mft.Error)
+	storGenerator map[StorageType]func(ctx context.Context, params Mount, relativePath string) (Storage, *mft.Error)
 	GeneratorInfo GeneratorInfo
 }
 
@@ -32,11 +37,11 @@ type GeneratorInfo struct {
 }
 
 type Mount struct {
-	ProviderType string `json:"provider"`
-	HomePath     string `json:"home_path"`
+	ProviderType StorageType `json:"provider"`
+	HomePath     string      `json:"home_path"`
 
-	CompressAlg   string `json:"compress_alg,omitempty"`
-	FileExtention string `json:"file_extention,omitempty"`
+	CompressAlg   compress.CompressionType `json:"compress_alg,omitempty"`
+	FileExtention string                   `json:"file_extention,omitempty"`
 
 	Params map[string]string `json:"params"`
 }
@@ -85,12 +90,12 @@ func CreateGenerator(generatorInfo GeneratorInfo, compressor *compress.Generator
 }
 
 // AddStorGenerator add storage generator
-func (s *Generator) AddStorGenerator(name string, generator func(ctx context.Context, params Mount, relativePath string) (Storage, *mft.Error)) {
+func (s *Generator) AddStorGenerator(name StorageType, generator func(ctx context.Context, params Mount, relativePath string) (Storage, *mft.Error)) {
 	s.mx.Lock()
 	defer s.mx.Unlock()
 
 	if s.storGenerator == nil {
-		s.storGenerator = make(map[string]func(ctx context.Context, params Mount, relativePath string) (Storage, *mft.Error))
+		s.storGenerator = make(map[StorageType]func(ctx context.Context, params Mount, relativePath string) (Storage, *mft.Error))
 	}
 
 	s.storGenerator[name] = generator
