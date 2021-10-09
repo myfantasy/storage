@@ -1,8 +1,6 @@
 package storage
 
 import (
-	"fmt"
-
 	"github.com/myfantasy/mft"
 )
 
@@ -36,18 +34,6 @@ var Errors map[int]string = map[int]string{
 	10001127: "LoadIfExists: doFill Check fail",
 }
 
-// GenerateError -
-func GenerateError(key int, a ...interface{}) *mft.Error {
-	if text, ok := Errors[key]; ok {
-		return mft.ErrorCS(key, fmt.Sprintf(text, a...))
-	}
-	panic(fmt.Sprintf("storage.GenerateError, error not found code:%v", key))
-}
-
-// GenerateErrorE -
-func GenerateErrorE(key int, err error, a ...interface{}) *mft.Error {
-	if text, ok := Errors[key]; ok {
-		return mft.ErrorCSE(key, fmt.Sprintf(text, a...), err)
-	}
-	panic(fmt.Sprintf("storage.GenerateErrorE, error not found code:%v error:%v", key, err))
+func init() {
+	mft.AddErrorsCodes(Errors)
 }

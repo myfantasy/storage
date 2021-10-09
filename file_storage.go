@@ -49,7 +49,7 @@ func (s *FileSorage) Exists(ctx context.Context, name string) (ok bool, err *mft
 	} else if os.IsNotExist(er0) {
 		return false, nil
 	}
-	return false, GenerateError(10000002, er0)
+	return false, mft.GenerateError(10000002, er0)
 }
 
 // Get data from storage
@@ -61,7 +61,7 @@ func (s *FileSorage) Get(ctx context.Context, name string) (body []byte, err *mf
 	if er0 == nil {
 		return data, nil
 	}
-	return data, GenerateError(10000002, er0)
+	return data, mft.GenerateError(10000002, er0)
 }
 
 // Save write data into storage
@@ -72,7 +72,7 @@ func (s *FileSorage) Save(ctx context.Context, name string, body []byte) *mft.Er
 	if er0 == nil {
 		return nil
 	}
-	return GenerateError(10000002, er0)
+	return mft.GenerateError(10000002, er0)
 }
 
 // Delete delete data from storage
@@ -83,7 +83,7 @@ func (s *FileSorage) Delete(ctx context.Context, name string) *mft.Error {
 	if er0 == nil {
 		return nil
 	}
-	return GenerateError(10000002, er0)
+	return mft.GenerateError(10000002, er0)
 }
 
 // Rename rename file from oldName to newName
@@ -95,7 +95,7 @@ func (s *FileSorage) Rename(ctx context.Context, oldName string, newName string)
 	if er0 == nil {
 		return nil
 	}
-	return GenerateError(10000002, er0)
+	return mft.GenerateError(10000002, er0)
 }
 
 // MkDirIfNotExists make directory
@@ -109,7 +109,7 @@ func (s *FileSorage) MkDirIfNotExists(ctx context.Context, name string) *mft.Err
 	if !ok {
 		er0 := os.MkdirAll(path, s.FolderPerm)
 		if er0 != nil {
-			return GenerateErrorE(10000003, er0, path)
+			return mft.GenerateErrorE(10000003, er0, path)
 		}
 	}
 

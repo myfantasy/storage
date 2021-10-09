@@ -104,19 +104,19 @@ func (s *Generator) AddStorGenerator(name StorageType, generator func(ctx contex
 // Create create new storage
 func (s *Generator) Create(ctx context.Context, mountName string, relativePath string) (Storage, *mft.Error) {
 	if !s.mx.RTryLock(ctx) {
-		return nil, GenerateError(10001000)
+		return nil, mft.GenerateError(10001000)
 	}
 	defer s.mx.RUnlock()
 
 	mount, ok := s.GeneratorInfo.Mounts[mountName]
 	if !ok {
-		return nil, GenerateError(10001002, mountName)
+		return nil, mft.GenerateError(10001002, mountName)
 	}
 
 	f, ok := s.storGenerator[mount.ProviderType]
 
 	if !ok {
-		return nil, GenerateError(10001001, mount.ProviderType)
+		return nil, mft.GenerateError(10001001, mount.ProviderType)
 	}
 
 	return f(ctx, mount, relativePath)

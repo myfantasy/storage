@@ -40,7 +40,7 @@ func (s *MapSorage) Get(ctx context.Context, name string) (body []byte, err *mft
 		return body, nil
 	}
 
-	return nil, GenerateError(10000000, name)
+	return nil, mft.GenerateError(10000000, name)
 }
 
 // Save write data into storage
@@ -76,10 +76,10 @@ func (s *MapSorage) Rename(ctx context.Context, oldName string, newName string) 
 
 		return nil
 	} else if ok2 {
-		return GenerateError(10000001, newName)
+		return mft.GenerateError(10000001, newName)
 	}
 
-	return GenerateError(10000000, oldName)
+	return mft.GenerateError(10000000, oldName)
 
 }
 
