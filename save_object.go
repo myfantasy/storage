@@ -34,6 +34,13 @@ type Storable interface {
 	FromBytes(data []byte) (err *mft.Error)
 }
 
+type StorableSaveReady interface {
+	Storable
+	SaveToStorage() Storage
+	SaveToFileName() string
+	SaveToContext() (context.Context, context.CancelFunc)
+}
+
 type DoFunc func() *mft.Error
 type CheckFunc func() (ok bool, err *mft.Error)
 
@@ -158,4 +165,16 @@ func LoadIfExists(ctx context.Context, s Storage, fileName string, v Storable, d
 	v.DataUnlock()
 
 	return true, nil
+}
+
+func SaveObject(ssr StorableSaveReady) (err *mft.Error) {
+	ctx, cancel := ssr.SaveToContext()
+	defer cancel()
+	return Save(ctx, ssr.SaveToStorage(), ssr.SaveToFileName(), ssr)
+}
+
+func LoadObject(ssr StorableSaveReady) (err *mft.Error) {
+	ctx, cancel := ssr.SaveToContext()
+	defer cancel()
+	return Load(ctx, ssr.SaveToStorage(), ssr.SaveToFileName(), ssr)
 }

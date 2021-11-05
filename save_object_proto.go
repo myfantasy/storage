@@ -2,8 +2,10 @@ package storage
 
 import (
 	"context"
+	"time"
 
 	"github.com/myfantasy/mfs"
+	"github.com/myfantasy/mft"
 )
 
 type SaveObjectProto struct {
@@ -42,4 +44,38 @@ func (sp *SaveObjectProto) RvGetStor() int64 {
 }
 func (sp *SaveObjectProto) RvSetStor(rv int64) {
 	sp.StorRv = rv
+}
+
+type SaveProto struct {
+	SaveObjectProto
+
+	RVG *mft.G `json:"_rvg,omitempty"`
+
+	SaveToStorageValue  Storage `json:"-"`
+	SaveToFileNameValue string  `json:"-"`
+
+	SaveToContextValue func() (context.Context, context.CancelFunc) `json:"-"`
+
+	SaveToContextDuration time.Duration `json:"-"`
+}
+
+func (sp *SaveProto) SaveToStorage() Storage {
+	return sp.SaveToStorageValue
+}
+func (sp *SaveProto) SaveToFileName() string {
+	return sp.SaveToFileName()
+}
+func (sp *SaveProto) SaveToContext() (context.Context, context.CancelFunc) {
+	if sp.SaveToContextValue != nil {
+		return sp.SaveToContextValue()
+	}
+	if sp.SaveToContextDuration > 0 {
+		return context.WithTimeout(context.Background(), sp.SaveToContextDuration)
+	}
+
+	return context.Background(), func() {}
+}
+
+func (sp *SaveProto) SetNextPartRv() {
+	sp.Rv = sp.RVG.RvGetPartOrGlobal()
 }
