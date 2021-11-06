@@ -63,7 +63,7 @@ func (sp *SaveProto) SaveToStorage() Storage {
 	return sp.SaveToStorageValue
 }
 func (sp *SaveProto) SaveToFileName() string {
-	return sp.SaveToFileName()
+	return sp.SaveToFileNameValue
 }
 func (sp *SaveProto) SaveToContext() (context.Context, context.CancelFunc) {
 	if sp.SaveToContextValue != nil {
