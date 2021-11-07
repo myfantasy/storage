@@ -102,7 +102,7 @@ func SaveExtend(ctx context.Context, s Storage, fileName string, v Storable, doB
 		}
 	}
 
-	v.RvSetStor(storRv)
+	v.RvSetStor(lastRv)
 
 	return nil
 }
